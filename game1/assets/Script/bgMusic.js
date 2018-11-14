@@ -12,23 +12,12 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-       
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        var bgm = cc.find('Canvas/btnMusic');
-        console.log(bgm);
-        if (bgm) {
-            bgm = bgm.getComponent('audio');
-        }
-        this.node.on('mousedown',  ( event ) => {
-            bgm.play();
-            setTimeout(()=>{
-                cc.director.loadScene('game');
-            }, 300);
-        });
+        cc.game.addPersistRootNode(this.node);
     },
 
     start () {

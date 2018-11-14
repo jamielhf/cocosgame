@@ -17,7 +17,6 @@ cc.Class({
         },
     },
     play: function () {
-        console.log(1);
         this.audioSource.play();
     },
     pause: function () {

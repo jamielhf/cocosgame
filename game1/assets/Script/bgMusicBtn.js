@@ -10,30 +10,28 @@
 
 cc.Class({
     extends: cc.Component,
-
+    bgm : null,
     properties: {
-       
+       btn: cc.Button,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
-        var bgm = cc.find('Canvas/btnMusic');
-        console.log(bgm);
+        let bgm = cc.find('bgMusic/music');
         if (bgm) {
-            bgm = bgm.getComponent('audio');
+            bgm = bgm.getComponent('AudioMng');
         }
         this.node.on('mousedown',  ( event ) => {
-            bgm.play();
-            setTimeout(()=>{
-                cc.director.loadScene('game');
-            }, 300);
+            if (this.btn.interactable) {
+                bgm.pauseMusic();
+            } else {
+                bgm.playMusic();
+            }
+            this.btn.interactable = !this.btn.interactable;
         });
+        
     },
-
-    start () {
-
-    },
+    onDestroy() {
+        // cc.audioEngine.stop(this.current);
+    }
 
     // update (dt) {},
 });
