@@ -18,15 +18,16 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        var bgm = cc.find('Canvas/bgm');
+        var bgm = cc.find('Canvas/btnMusic');
         console.log(bgm);
         if (bgm) {
             bgm = bgm.getComponent('audio');
-            
         }
         this.node.on('mousedown',  ( event ) => {
             bgm.play();
-            console.log('Hello!');
+            setTimeout(()=>{
+                cc.director.loadScene('游戏场景');
+            }, 300);
         });
     },
 
