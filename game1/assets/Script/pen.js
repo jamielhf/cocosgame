@@ -14,7 +14,14 @@ cc.Class({
     properties: {
         anim: null,
     },
-
+    onLoad() {
+        // 碰撞检测
+        const manager = cc.director.getCollisionManager();
+        // 默认没有开启
+        manager.enabled = true;
+        // debug
+        manager.enabledDebugDraw = true;
+    },
     start () {
         const pens = cc.find('Canvas/pens'); 
         this.anim = pens.getComponent(cc.Animation);// 获取节点中的动画组件
@@ -30,6 +37,9 @@ cc.Class({
         this.anim.pause('pen');
         const action = cc.moveTo(.5, 0, 400);
         this.node.runAction(action);
+    },
+    onCollisionEnter() {
+        console.log(11);
     }
 
 });
