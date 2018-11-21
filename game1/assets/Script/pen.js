@@ -23,12 +23,6 @@ cc.Class({
         animState.speed = 0.5;
         // 设置循环模式为 Loop
         animState.wrapMode = cc.WrapMode.Loop;
-        // anim.runAction(move);
-        // this.node.on('mousedown',  ( event ) => {
-        //     this.anim.pause('pen');
-        //     const action = cc.moveTo(1,0, 100);
-        //     this.node.runAction(action);
-        // });
        
     },
     // 发射
