@@ -32,5 +32,4 @@ cc.Class({
         this.node.runAction(action);
     }
 
-    // update (dt) {},
 });
