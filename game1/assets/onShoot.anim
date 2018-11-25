@@ -3,7 +3,7 @@
   "_name": "onShoot",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.016666666666666666,
+  "_duration": 0.06666666666666667,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -13,6 +13,12 @@
         "spriteFrame": [
           {
             "frame": 0,
+            "value": {
+              "__uuid__": "1188a6de-70cb-4646-9f41-dae3cfc32757"
+            }
+          },
+          {
+            "frame": 0.05,
             "value": {
               "__uuid__": "1188a6de-70cb-4646-9f41-dae3cfc32757"
             }

@@ -41,11 +41,25 @@ cc.Class({
     // 开始碰撞
     onCollisionEnter(other, self) {
         self.node.stopAllActions();
-        console.log(other.node.getComponent('gameIcon'));
-        const gameIcon = other.node.getComponent('gameIcon');
-        const animState =  gameIcon.anim.play('onShoot'); // 播放动画
-        // 播放速度
-        animState.speed = .3;
+        
+        // self.node.rotation = 90;
+        this.jumpAction = cc.sequence(
+            cc.spawn(
+                cc.scaleTo(0.1, .4, .4),
+                cc.moveTo(0.2, 10, 10),
+            ),
+            cc.spawn(
+                cc.scaleTo(0.1, .4, .4),
+                cc.rotateTo(3, 1080),
+                cc.moveTo(2, 100, 100),
+            ),
+        // 以1/2的速度慢放动画，并重复5次
+        ).speed(2).repeat(1);
+        self.node.runAction(this.jumpAction);
+        // console.log(other);
+        // const gameIcon = other.getComponent('gameIcon');
+        // gameIcon.onShoot();
+        
     }
 
 });

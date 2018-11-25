@@ -33,26 +33,5 @@
       }
     }
   },
-  "events": [
-    {
-      "frame": 0,
-      "func": "",
-      "params": []
-    },
-    {
-      "frame": 0,
-      "func": "",
-      "params": []
-    },
-    {
-      "frame": 0,
-      "func": "",
-      "params": []
-    },
-    {
-      "frame": 0,
-      "func": "",
-      "params": []
-    }
-  ]
+  "events": []
 }
