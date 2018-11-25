@@ -38,8 +38,14 @@ cc.Class({
         const action = cc.moveTo(.5, 0, 400);
         this.node.runAction(action);
     },
-    onCollisionEnter() {
-        console.log(11);
+    // 开始碰撞
+    onCollisionEnter(other, self) {
+        self.node.stopAllActions();
+        console.log(other.node.getComponent('gameIcon'));
+        const gameIcon = other.node.getComponent('gameIcon');
+        const animState =  gameIcon.anim.play('onShoot'); // 播放动画
+        // 播放速度
+        animState.speed = .3;
     }
 
 });
