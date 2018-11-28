@@ -5,12 +5,13 @@ console.log(gameIconMove);
 cc.Class({
     extends: gameIconMove,
     properties: {
-      
+      // gameIconImg: cc.Node,
     },
     onLoad () {
       const Canvas =  cc.find('Canvas');
       this.global = Canvas.getComponent('global');
       console.log(this.global.level);
+      this.node.active = false;
     },
 
     start () {

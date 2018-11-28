@@ -18,11 +18,11 @@ cc.Class({
         const Canvas =  cc.find('Canvas');
         this.global = Canvas.getComponent('global');
         // 碰撞检测
-        const manager = cc.director.getCollisionManager();
+        this.manager = cc.director.getCollisionManager();
         // 默认没有开启
-        manager.enabled = true;
+        this.manager.enabled = true;
         // debug
-        manager.enabledDebugDraw = true;
+        // manager.enabledDebugDraw = true;
     },
     start () {
         const pens = cc.find('Canvas/pens'); 
@@ -43,7 +43,8 @@ cc.Class({
     // 开始碰撞
     onCollisionEnter(other, self) {
         self.node.stopAllActions();
-        console.log()
+        this.manager.enabled = false;
+        console.log(11221);
         const g = other.getComponent('gameIcon');
         // 播放击中的动画
         g.onShoot();
@@ -51,36 +52,33 @@ cc.Class({
         this.jumpAction = cc.sequence(
             cc.spawn(
                 cc.scaleTo(0.1, .4, .4),
-                cc.moveTo(0.2, 10, 10),
+                cc.moveBy(0.1, 0, 10),
             ),
             cc.spawn(
                 cc.rotateBy(.5, 360),
-                cc.moveTo(.5, 30, 100),
+                cc.moveBy(.5, 20, 50),
             ),
             cc.spawn(
                 cc.rotateBy(.5, 360),
-                cc.moveTo(.5, 40, 140),
+                cc.moveBy(.5, 30, 90),
             ),
             cc.spawn(
                 cc.scaleTo(0.1, .4, .4),
                 cc.rotateBy(1, 540),
-                cc.moveTo(1, 70, -80),
+                cc.moveBy(1, 50, -100),
                 cc.fadeOut(1),
             ),
-            // cc.spawn(
-            //     cc.scaleTo(0.1, .4, .4),
-            //     // cc.rotateTo(1, 720),
-            //     cc.moveTo(1, 10, 10),
-            // ),
             cc.callFunc( (e) => {
                 if(e.name === 'pens') {
                     this.global.levelUp();
+                    this.manager.enabled = true;
                     console.log(this.global.level);
                 }
                 //do something
             } , this)
         // 以1/2的速度慢放动画，并重复5次
         ).speed(2).repeat(1);
+      
         // 集中后掉落的动画
         self.node.runAction(this.jumpAction);
         other.node.runAction(this.jumpAction.clone());
