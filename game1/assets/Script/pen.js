@@ -15,6 +15,8 @@ cc.Class({
         anim: null,
     },
     onLoad() {
+        const Canvas =  cc.find('Canvas');
+        this.global = Canvas.getComponent('global');
         // 碰撞检测
         const manager = cc.director.getCollisionManager();
         // 默认没有开启
@@ -41,7 +43,10 @@ cc.Class({
     // 开始碰撞
     onCollisionEnter(other, self) {
         self.node.stopAllActions();
-        
+        console.log()
+        const g = other.getComponent('gameIcon');
+        // 播放击中的动画
+        g.onShoot();
         // self.node.rotation = 90;
         this.jumpAction = cc.sequence(
             cc.spawn(
@@ -49,16 +54,36 @@ cc.Class({
                 cc.moveTo(0.2, 10, 10),
             ),
             cc.spawn(
-                cc.scaleTo(0.1, .4, .4),
-                cc.rotateTo(3, 1080),
-                cc.moveTo(2, 100, 100),
+                cc.rotateBy(.5, 360),
+                cc.moveTo(.5, 30, 100),
             ),
+            cc.spawn(
+                cc.rotateBy(.5, 360),
+                cc.moveTo(.5, 40, 140),
+            ),
+            cc.spawn(
+                cc.scaleTo(0.1, .4, .4),
+                cc.rotateBy(1, 540),
+                cc.moveTo(1, 70, -80),
+                cc.fadeOut(1),
+            ),
+            // cc.spawn(
+            //     cc.scaleTo(0.1, .4, .4),
+            //     // cc.rotateTo(1, 720),
+            //     cc.moveTo(1, 10, 10),
+            // ),
+            cc.callFunc( (e) => {
+                if(e.name === 'pens') {
+                    this.global.levelUp();
+                    console.log(this.global.level);
+                }
+                //do something
+            } , this)
         // 以1/2的速度慢放动画，并重复5次
         ).speed(2).repeat(1);
+        // 集中后掉落的动画
         self.node.runAction(this.jumpAction);
-        // console.log(other);
-        // const gameIcon = other.getComponent('gameIcon');
-        // gameIcon.onShoot();
+        other.node.runAction(this.jumpAction.clone());
         
     }
 

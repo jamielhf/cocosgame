@@ -8,7 +8,9 @@ cc.Class({
       
     },
     onLoad () {
-      
+      const Canvas =  cc.find('Canvas');
+      this.global = Canvas.getComponent('global');
+      console.log(this.global.level);
     },
 
     start () {
@@ -28,20 +30,22 @@ cc.Class({
       animState.wrapMode = cc.WrapMode.Normal;
       const onShoot = this.anim.getAnimationState('onShoot');
       console.log(onShoot);
-        if (onShoot) {
-          onShoot.on('finished', (event) => {
-            console.log(1122);
-            this.finished();
-          }, this);
-        }
+        // if (onShoot) {
+        //   onShoot.on('finished', (event) => {
+        //     console.log(1122);
+        //     this.finished();
+        //   }, this);
+        // }
     },
     // 在 被击中的时候播放状态的动画结束后调用，
     finished() {
-      console.log(111);
       const animState =  this.anim.play('moveOut'); // 播放动画
       // 播放速度
       animState.speed = .3;
       animState.wrapMode = cc.WrapMode.Normal;
+    },
+    update() {
+
     }
 
 });

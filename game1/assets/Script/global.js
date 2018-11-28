@@ -12,6 +12,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        life: 3,  // 生命
+        level: 1, // 关数
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -21,11 +23,17 @@ cc.Class({
         const pensCom = pens.getComponent('pen');
         console.log(pensCom);
         this.node.on('mousedown', ()=>{
-            console.log(1);
-            pensCom.move()
+            pensCom.move();
         })
     },
-
+    // 下一关
+    levelUp() {
+        this.level = this.level + 1;
+    },
+    // 减少生命
+    loseLife() {
+        this.life = this.life - 1;
+    },
     start () {
 
     },
