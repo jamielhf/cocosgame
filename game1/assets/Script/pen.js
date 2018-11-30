@@ -14,7 +14,21 @@ cc.Class({
     properties: {
         anim: null,
     },
+    penAction() {
+        this.action = cc.sequence(
+            cc.moveBy(.2, 0, 10),
+            cc.moveBy(.2, 0, 0),
+            cc.moveBy(.2, 0, -10),
+        // 以1/2的速度慢放动画，并重复5次
+        ).speed(2).repeatForever();
+        this.node.runAction(this.action);
+    },
     onLoad() {
+
+        const N_pos = this.node.parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width/2, 100));
+        this.node.setPosition(N_pos);
+        this.penAction();
+
         const Canvas =  cc.find('Canvas');
         this.global = Canvas.getComponent('global');
         // 碰撞检测
@@ -26,53 +40,57 @@ cc.Class({
     },
     start () {
         const pens = cc.find('Canvas/pens'); 
-        this.anim = pens.getComponent(cc.Animation);// 获取节点中的动画组件
-        const animState =  this.anim.play('pen'); // 播放动画
-        // 播放速度
-        animState.speed = 0.5;
-        // 设置循环模式为 Loop
-        animState.wrapMode = cc.WrapMode.Loop;
-       
+        this.anim = pens.getComponent(cc.Animation);// 获取节点中的动画组件     
     },
     // 发射
     move() {
         this.anim.pause('pen');
-        const action = cc.moveTo(.5, 0, 400);
+        const action = cc.sequence(
+            cc.moveTo(.5, 0, 400),
+            cc.callFunc( (e) => {
+                // 没有击中的情况 减少生命值 
+                this.global.loseLife();
+                // 重新开始
+
+            })
+            );
         this.node.runAction(action);
     },
     // 开始碰撞
     onCollisionEnter(other, self) {
+        this.global.addScore();
         self.node.stopAllActions();
         this.manager.enabled = false;
-        console.log(11221);
         const g = other.getComponent('gameIcon');
         // 播放击中的动画
         g.onShoot();
-        // self.node.rotation = 90;
         this.jumpAction = cc.sequence(
             cc.spawn(
                 cc.scaleTo(0.1, .4, .4),
-                cc.moveBy(0.1, 0, 10),
+                cc.moveBy(0.1, 0, 0),
+            ),
+            cc.spawn(
+                cc.rotateBy(.4, 360),
+                cc.moveBy(.4, 20, 30),
             ),
             cc.spawn(
                 cc.rotateBy(.5, 360),
-                cc.moveBy(.5, 20, 50),
+                cc.moveBy(.5, 30, 60 ),
             ),
             cc.spawn(
-                cc.rotateBy(.5, 360),
-                cc.moveBy(.5, 30, 90),
-            ),
-            cc.spawn(
-                cc.scaleTo(0.1, .4, .4),
                 cc.rotateBy(1, 540),
-                cc.moveBy(1, 50, -100),
+                cc.moveBy(1, 50, -120),
                 cc.fadeOut(1),
             ),
             cc.callFunc( (e) => {
+                // 动画结束后 隐藏结点 提高等级 进入下一关
+                e.active = false;
                 if(e.name === 'pens') {
                     this.global.levelUp();
                     this.manager.enabled = true;
                     console.log(this.global.level);
+                } else {
+                    g.defaultAction();
                 }
                 //do something
             } , this)
@@ -83,6 +101,20 @@ cc.Class({
         self.node.runAction(this.jumpAction);
         other.node.runAction(this.jumpAction.clone());
         
-    }
+    },
+     // 重新放制 笔
+     reSetPen() {
+         console.log('重制笔的位置');
+        const penNode = this.node;
+        penNode.stopAllActions();
+        penNode.opacity = 255;
+        const N_pos = penNode.parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width/2, 100));
+        penNode.setPosition(N_pos);
+        penNode.scaleY = .5;
+        penNode.scaleX = .5;
+        penNode.rotation = 0;
+        penNode.active = true;
+        this.penAction();
+      },
 
 });

@@ -1,0 +1,31 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "porkOnShoot",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.06666666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "1188a6de-70cb-4646-9f41-dae3cfc32757"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "1188a6de-70cb-4646-9f41-dae3cfc32757"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

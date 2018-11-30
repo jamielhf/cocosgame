@@ -14,6 +14,7 @@ cc.Class({
     properties: {
         life: 3,  // 生命
         level: 1, // 关数
+        score: 0, // 分数
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -33,6 +34,10 @@ cc.Class({
     // 减少生命
     loseLife() {
         this.life = this.life - 1;
+    },
+    // 加分
+    addScore(num = 1) {
+        this.score = this.score + num;
     },
     start () {
 

@@ -14,6 +14,11 @@
     [
       true,
       false
+    ],
+    [
+      false,
+      false,
+      false
     ]
   ],
   "design-resolution-height": 640,
@@ -23,7 +28,8 @@
   "fit-width": false,
   "group-list": [
     "pens",
-    "gameIcon"
+    "gameIcon",
+    "other"
   ],
   "simulator-orientation": false,
   "simulator-resolution": {
@@ -31,6 +37,5 @@
     "width": 960
   },
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }
