@@ -25,7 +25,7 @@ cc.Class({
     },
     onLoad() {
         // 击中的音乐
-        const music = cc.find('bgMusic/music');
+        const music = cc.find('Canvas/music');
         if (music) {
             this.hit = music.getComponent('AudioMng');
         }
@@ -55,14 +55,15 @@ cc.Class({
                 // 没有击中的情况 减少生命值 
                 this.global.loseLife();
                 // 重新开始
-
-            })
+                this.reSetPen();
+                })
             );
         this.node.runAction(action);
     },
     // 开始碰撞
     onCollisionEnter(other, self) {
-        this.hit();
+        console.log('击中')
+        this.hit.onHit();
         this.global.addScore();
         self.node.stopAllActions();
         this.manager.enabled = false;

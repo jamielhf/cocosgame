@@ -18,7 +18,7 @@ cc.Class({
     stopMusic() {
         cc.audioEngine.stop( this.bgm );
     },
-    hit() {
+    onHit() {
         cc.audioEngine.playMusic( this.hit, false );
     },
     pauseMusic() {
