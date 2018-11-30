@@ -24,7 +24,11 @@ cc.Class({
         this.node.runAction(this.action);
     },
     onLoad() {
-
+        // 击中的音乐
+        const music = cc.find('bgMusic/music');
+        if (music) {
+            this.hit = music.getComponent('AudioMng');
+        }
         const N_pos = this.node.parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width/2, 100));
         this.node.setPosition(N_pos);
         this.penAction();
@@ -58,6 +62,7 @@ cc.Class({
     },
     // 开始碰撞
     onCollisionEnter(other, self) {
+        this.hit();
         this.global.addScore();
         self.node.stopAllActions();
         this.manager.enabled = false;
