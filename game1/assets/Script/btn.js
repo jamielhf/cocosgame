@@ -23,7 +23,7 @@ cc.Class({
         if (bgm) {
             bgm = bgm.getComponent('audio');
         }
-        this.node.on('mousedown',  ( event ) => {
+        this.node.on('touchstart',  ( event ) => {
             bgm.play();
             setTimeout(()=>{
                 cc.director.loadScene('game');

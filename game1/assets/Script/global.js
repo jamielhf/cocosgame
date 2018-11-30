@@ -23,7 +23,7 @@ cc.Class({
         const pens =  cc.find('Canvas/pens');
         const pensCom = pens.getComponent('pen');
         console.log(pensCom);
-        this.node.on('mousedown', ()=>{
+        this.node.on('touchstart', ()=>{
             pensCom.move();
         })
     },
