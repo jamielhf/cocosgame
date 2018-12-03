@@ -7,9 +7,13 @@ cc.Class({
     properties: {
       pork: cc.Node,
       corn: cc.Node,
+      octopus: cc.Node,
+      tomato: cc.Node,
+      tomato2: cc.Node,
+      mushroom: cc.Node,
     },
     onLoad() {
-      this.allItem = ['pork', 'corn'];
+      this.allItem = ['pork', 'corn', 'tomato', 'tomato2', 'mushroom', 'octopus'];
       const Canvas =  cc.find('Canvas');
       this.global = Canvas.getComponent('global');
       const Pens = cc.find('Canvas/pens');

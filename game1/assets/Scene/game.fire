@@ -1305,7 +1305,7 @@
     "_defaultClip": null,
     "_clips": [
       {
-        "__uuid__": "78752eb2-4b0b-406b-885d-e37ed51a86fa"
+        "__uuid__": "31425596-e728-4436-9f72-5690582aa096"
       },
       {
         "__uuid__": "6a1cf2c3-91ed-4c76-9e86-0ea44764fb57"
@@ -1457,7 +1457,7 @@
         "__uuid__": "78752eb2-4b0b-406b-885d-e37ed51a86fa"
       },
       {
-        "__uuid__": "6a1cf2c3-91ed-4c76-9e86-0ea44764fb57"
+        "__uuid__": "9686b921-f18c-4bb1-9da9-6b37272c2caf"
       }
     ],
     "playOnLoad": false,
@@ -1805,6 +1805,18 @@
     },
     "corn": {
       "__id__": 26
+    },
+    "octopus": {
+      "__id__": 31
+    },
+    "tomato": {
+      "__id__": 41
+    },
+    "tomato2": {
+      "__id__": 46
+    },
+    "mushroom": {
+      "__id__": 36
     },
     "_id": "8aSwUPlO5C/7iNavfs6oR4"
   },
