@@ -62,7 +62,16 @@ cc.Class({
     },
     // 开始碰撞
     onCollisionEnter(other, self) {
-        console.log('击中')
+        console.log('击中');
+        var world = self.world;
+
+        // 碰撞组件的 aabb 碰撞框
+        var aabb = world.aabb;
+    
+        // 节点碰撞前上一帧 aabb 碰撞框的位置
+        var preAabb = world.preAabb;
+
+        console.log(preAabb);
         this.hit.onHit();
         this.global.addScore();
         self.node.stopAllActions();
@@ -72,22 +81,34 @@ cc.Class({
         g.onShoot();
         this.jumpAction = cc.sequence(
             cc.spawn(
+                cc.jumpBy(3, 100, 50, 150, 1),
                 cc.scaleTo(0.1, .4, .4),
-                cc.moveBy(0.1, 0, 0),
+                cc.rotateBy(3, 360 + 540),
+                cc.delayTime(1),
+                cc.fadeOut(3),
             ),
-            cc.spawn(
-                cc.rotateBy(.4, 360),
-                cc.moveBy(.4, 20, 30),
-            ),
-            cc.spawn(
-                cc.rotateBy(.5, 360),
-                cc.moveBy(.5, 30, 60 ),
-            ),
-            cc.spawn(
-                cc.rotateBy(1, 540),
-                cc.moveBy(1, 50, -120),
-                cc.fadeOut(1),
-            ),
+            
+            // cc.jumpBy(3, 100, 50, 150, 1),
+            //  cc.scaleTo(0.1, .4, .4),
+            //  cc.rotateBy(2, 360 + 540),
+            // cc.spawn(
+            //     cc.scaleTo(0.1, .4, .4),
+            //     cc.moveBy(0.1, 0, 0),
+            // ),
+            // cc.spawn(
+            //     cc.rotateBy(.4, 360),
+            //     cc.moveBy(.4, 20, 30),
+            // ),
+            // cc.spawn(
+            //     cc.rotateBy(.5, 360),
+            //     cc.moveBy(.5, 30, 60 ),
+            // ),
+            // cc.spawn(
+            //     cc.rotateBy(1, 540),
+            //     cc.moveBy(1, 50, -120),
+            //     cc.fadeOut(1),
+            // ),
+            
             cc.callFunc( (e) => {
                 // 动画结束后 隐藏结点 提高等级 进入下一关
                 e.active = false;
@@ -101,7 +122,7 @@ cc.Class({
                 //do something
             } , this)
         // 以1/2的速度慢放动画，并重复5次
-        ).speed(2).repeat(1);
+        ).speed(4).repeat(1);
       
         // 集中后掉落的动画
         self.node.runAction(this.jumpAction);
