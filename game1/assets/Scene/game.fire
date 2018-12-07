@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25845768406199165,
+      "y": 0.25845768406199165,
       "z": 1
     },
     "_quat": {
@@ -873,8 +873,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -256,
-      "y": -342,
+      "x": 22,
+      "y": -500,
       "z": 0
     },
     "_scale": {
@@ -1024,6 +1024,13 @@
       "__id__": 21
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "_id": "724L55FSNDv6FS0rg2ppXO"
   },
   {
@@ -1173,6 +1180,13 @@
       "__id__": 26
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "_id": "c61IuChsVIELuN8MrZiLId"
   },
   {
@@ -1322,6 +1336,13 @@
       "__id__": 31
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "_id": "15oU//qMZI2IpQ+oGFwxLy"
   },
   {
@@ -1471,6 +1492,13 @@
       "__id__": 36
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "_id": "6a9QwndV9KYIqJZfkGDU6C"
   },
   {
@@ -1620,6 +1648,13 @@
       "__id__": 41
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "_id": "8crfZfpdpE2qRCj6MQpsvb"
   },
   {
@@ -1769,6 +1804,13 @@
       "__id__": 46
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "_id": "21vjX7fGVDCo5ob62iPKeA"
   },
   {
@@ -1800,6 +1842,13 @@
       "__id__": 20
     },
     "_enabled": true,
+    "circleCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "radian": 0,
+    "circleRadius": 100,
     "pork": {
       "__id__": 21
     },

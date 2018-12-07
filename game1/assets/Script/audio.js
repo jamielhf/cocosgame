@@ -22,10 +22,6 @@ cc.Class({
     pause: function () {
         this.audioSource.pause();
     },
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
     start () {
 
     },

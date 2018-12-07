@@ -23,6 +23,20 @@ cc.Class({
        // 设置循环模式为 Loop
        animState.wrapMode = cc.WrapMode.Loop;
     },
+    runAction(actionType) {
+      if(actionType === 'circleAction') {
+        this.circleAction();
+      }
+    },
+    circleAction() {
+      this.action = () => {
+        this.circleMove(this.node);
+      };
+      this.schedule(this.action, .01);
+    },
+    stopAction() {
+      this.unscheduleAllCallbacks();
+    },
     start () {
       this.defaultAction();
     },

@@ -1,5 +1,7 @@
 
 const gameIconMove = require('gameIconMove');
+const util = require('../util/util');
+
 console.log(gameIconMove);
 
 cc.Class({
@@ -18,59 +20,100 @@ cc.Class({
       this.global = Canvas.getComponent('global');
       const Pens = cc.find('Canvas/pens');
       this.pens = Pens.getComponent('pen');
-      this.render = false;
+      this.startNew = true;
       console.log(this.pens.node);
     },
     /**
-     * 随机取一个节点
+     * 随机取节点 默认取一个
      */
-    getRandomOneNode() {
-      const r = Math.floor(this.allItem.length * Math.random());
-      // console.log(node);
-      return this[this.allItem[r]];
+    getRandomOneNode(num = 1) {
+      if(num !== 1) {
+        const arr = [].concat(this.allItem);
+        let result = [];
+        this.gameNodeList = [];
+        let ranNum = num;
+        for (let i = 0; i < ranNum; i++) {
+          let ran = Math.floor(Math.random() * arr.length);
+          // console.log()
+          result.push(this[[arr.splice(ran, 1)[0]]]);
+        };
+        return result;
+      } else {
+        const r = Math.floor(this.allItem.length * Math.random());
+        return [this[this.allItem[r]]];
+      }   
     },
     start () {
       // 随机取结点中的一个
       this.gameNode = this.getRandomOneNode();
-      // console.log(node);
-      const N_pos = this.gameNode.parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width/2,cc.winSize.height/2));
-      this.gameNode.setPosition(N_pos);
-      this.gameNode.active = true;
+      const N_pos = this.gameNode[0].parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width/2,cc.winSize.height/2));
+      this.gameNode[0].setPosition(N_pos);
+      this.gameNode[0].active = true;
+      // this.gameNode.radian = util.getRadian(180);
+      // console.log(this.getRandomOneNode(2));
+      // this.setCircleMove();
     },
    
+   /**
+    * 圆周运动
+    * @param {*} num 
+    */
+    setCircleMove(num = 1) {
+      this.global.gameItem = num;
+      this.gameNode = this.getRandomOneNode(num);
+
+      this.gameNode.map((i, k)=>{
+        i.radian = util.getRadian(k*60);
+        this.reSetGameIcon(i);
+        const gameIcon = i.getComponent('gameIcon');
+        gameIcon.runAction('circleAction');
+      });
+     
+    },
     /**
      * 左右移动
+     * @param {*} num 
      */
-    moveLeftandRight() {
-      const gameNode = this.getRandomOneNode();
-      const N_pos = gameNode.parent.convertToNodeSpaceAR(cc.v2(50, cc.winSize.height / 2));
-      gameNode.setPosition(N_pos);
-      this.reSetGameIcon(gameNode);
-      const action = cc.sequence(
-        cc.moveBy(.7, cc.winSize.width - 100, 0),
-        cc.moveBy(.7, 100 - cc.winSize.width, 0),
-      ).speed(1).repeatForever();
-      gameNode.runAction(action);
+    moveLR(num = 1) {
+      this.global.gameItem = num;
+      this.gameNode = this.getRandomOneNode(num);
+      console.log(this.gameNode);
+      if (num>1) {
+        const N_pos = this.gameNode[0].parent.convertToNodeSpaceAR(cc.v2(0,cc.winSize.height/2 - 70));
+        this.gameNode[0].setPosition(N_pos);
+        this.gameNode[0].active = true;
+        const N_pos2 = this.gameNode[1].parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width,cc.winSize.height/2 + 70));
+        this.gameNode[1].setPosition(N_pos2);
+        this.gameNode[1].active = true;
+      } else {
+        const N_pos = this.gameNode[0].parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width,cc.winSize.height/2));
+        this.gameNode[0].setPosition(N_pos);
+        this.gameNode[0].active = true;
+      }
+      this.moveLeftandRight(this.gameNode);
     },
     /**
-     * 重制节点
-     * @param {s} gameNode 
+     * 重新设置关卡
      */
-    reSetGameIcon(gameNode) {
-      gameNode.opacity = 255;
-      gameNode.scaleY = .5;
-      gameNode.scaleX = .5;
-      gameNode.rotation = 0;
-      gameNode.active = true;
+    reStart() {
+      console.log('重新设置关卡');
+      this.startNew = true;
     },
     update(e) {
-      if(!this.render && this.global.level > 1) {
-        this.pens.reSetPen();
-        if (this.global.level === 2) {
-          this.moveLeftandRight();
-          this.render = true;
+      if(this.startNew && this.global.level > 1) {
+        switch (this.global.level) {
+          case 2 : 
+            this.moveLR(1);
+            break;
+          case 3 : this.setCircleMove(1); break;
+          case 4 :  this.moveLR(2);
+          break;
+          default: break;
         }
+        this.startNew = false;
       }
+      // console.log(1);
+     
     }
 
 });

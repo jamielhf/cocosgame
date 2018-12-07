@@ -15,6 +15,7 @@ cc.Class({
         life: 3,  // 生命
         level: 1, // 关数
         score: 0, // 分数
+        gameItem: 1, // 每一关击中多少个可以过关
     },
 
     // LIFE-CYCLE CALLBACKS:

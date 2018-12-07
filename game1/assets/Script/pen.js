@@ -63,20 +63,25 @@ cc.Class({
     // 开始碰撞
     onCollisionEnter(other, self) {
         console.log('击中');
-        var world = self.world;
-
-        // 碰撞组件的 aabb 碰撞框
-        var aabb = world.aabb;
-    
-        // 节点碰撞前上一帧 aabb 碰撞框的位置
-        var preAabb = world.preAabb;
-
-        console.log(preAabb);
-        this.hit.onHit();
-        this.global.addScore();
-        self.node.stopAllActions();
+        this.global.gameItem--;
+        console.log(this.global.gameItem);
+        // 关闭碰撞检查
         this.manager.enabled = false;
+        // var world = self.world;
+        // // 碰撞组件的 aabb 碰撞框
+        // var aabb = world.aabb;
+        // // 节点碰撞前上一帧 aabb 碰撞框的位置
+        // var preAabb = world.preAabb;
+        
+        const parentNode = other.node.parent.getComponent('game');
         const g = other.getComponent('gameIcon');
+        self.node.stopAllActions();
+        g.stopAction();
+        // 播放击中的音乐
+        this.hit.onHit();
+        // 加分
+        this.global.addScore();
+       
         // 播放击中的动画
         g.onShoot();
         this.jumpAction = cc.sequence(
@@ -87,39 +92,26 @@ cc.Class({
                 cc.delayTime(1),
                 cc.fadeOut(3),
             ),
-            
-            // cc.jumpBy(3, 100, 50, 150, 1),
-            //  cc.scaleTo(0.1, .4, .4),
-            //  cc.rotateBy(2, 360 + 540),
-            // cc.spawn(
-            //     cc.scaleTo(0.1, .4, .4),
-            //     cc.moveBy(0.1, 0, 0),
-            // ),
-            // cc.spawn(
-            //     cc.rotateBy(.4, 360),
-            //     cc.moveBy(.4, 20, 30),
-            // ),
-            // cc.spawn(
-            //     cc.rotateBy(.5, 360),
-            //     cc.moveBy(.5, 30, 60 ),
-            // ),
-            // cc.spawn(
-            //     cc.rotateBy(1, 540),
-            //     cc.moveBy(1, 50, -120),
-            //     cc.fadeOut(1),
-            // ),
-            
+           
             cc.callFunc( (e) => {
                 // 动画结束后 隐藏结点 提高等级 进入下一关
                 e.active = false;
                 if(e.name === 'pens') {
-                    this.global.levelUp();
+                     // 开启碰撞检查
                     this.manager.enabled = true;
                     console.log(this.global.level);
+                    this.reSetPen();
+                     // 如果没有可击中的怪物
+                    if(this.global.gameItem == 0) {
+                        // 下一关
+                        this.global.levelUp();
+                        parentNode.reStart();
+                    } 
                 } else {
                     g.defaultAction();
+                   
                 }
-                //do something
+                
             } , this)
         // 以1/2的速度慢放动画，并重复5次
         ).speed(4).repeat(1);
