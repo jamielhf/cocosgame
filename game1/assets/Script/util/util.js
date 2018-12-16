@@ -5,5 +5,8 @@ export default {
    */
   getRadian(num) {
     return Math.PI*num/180;
+  },
+  getAngle(num) {
+    return num*180/Math.PI;
   }
 }

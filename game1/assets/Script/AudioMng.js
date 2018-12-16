@@ -4,9 +4,11 @@ cc.Class({
     properties: {
         bgm: {
             default: null,
+            type: cc.Texture2D,
             url: cc.AudioClip
         },
         hit: {
+            type: cc.Texture2D,
             default: null,
             url: cc.AudioClip,
         }

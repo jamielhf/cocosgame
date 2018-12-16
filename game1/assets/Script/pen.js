@@ -40,7 +40,8 @@ cc.Class({
         // 默认没有开启
         this.manager.enabled = true;
         // debug
-        // manager.enabledDebugDraw = true;
+        // this.manager.enabledDebugDraw = true;
+       
     },
     start () {
         const pens = cc.find('Canvas/pens'); 
@@ -52,10 +53,14 @@ cc.Class({
         const action = cc.sequence(
             cc.moveTo(.5, 0, 400),
             cc.callFunc( (e) => {
-                // 没有击中的情况 减少生命值 
-                this.global.loseLife();
-                // 重新开始
-                this.reSetPen();
+                    // 没有击中的情况 减少生命值 
+                    this.global.loseLife();
+                    if(this.global.life > 0) {
+                        // 重新开始
+                        this.reSetPen();
+                    } else {
+                        this.gameIconNode.active = false;
+                    }
                 })
             );
         this.node.runAction(action);
@@ -63,18 +68,14 @@ cc.Class({
     // 开始碰撞
     onCollisionEnter(other, self) {
         console.log('击中');
+       
         this.global.gameItem--;
-        console.log(this.global.gameItem);
         // 关闭碰撞检查
         this.manager.enabled = false;
-        // var world = self.world;
-        // // 碰撞组件的 aabb 碰撞框
-        // var aabb = world.aabb;
-        // // 节点碰撞前上一帧 aabb 碰撞框的位置
-        // var preAabb = world.preAabb;
         
         const parentNode = other.node.parent.getComponent('game');
         const g = other.getComponent('gameIcon');
+        this.gameIconNode = other.node;
         self.node.stopAllActions();
         g.stopAction();
         // 播放击中的音乐

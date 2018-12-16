@@ -36,6 +36,7 @@ cc.Class({
     },
     stopAction() {
       this.unscheduleAllCallbacks();
+      this.node.stopAllActions();
     },
     start () {
       this.defaultAction();

@@ -3,7 +3,7 @@
     "appID": "13798",
     "appSecret": "959b3ac0037d0f3c2fdce94f8421a9b2",
     "channel": "",
-    "enable": false,
+    "enable": true,
     "version": ""
   },
   "collision-matrix": [
@@ -37,6 +37,5 @@
     "width": 1920
   },
   "use-customize-simulator": false,
-  "use-project-simulator-setting": true,
-  "start-scene": "current"
+  "use-project-simulator-setting": true
 }

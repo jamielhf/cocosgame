@@ -9,29 +9,29 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 cc.Class({
-    extends: cc.Component,
-    bgm : null,
-    properties: {
-       btn: cc.Button,
-    },
-    onLoad () {
-        let bgm = cc.find('bgMusic/music');
-        if (bgm) {
-            bgm = bgm.getComponent('AudioMng');
-        }
-        this.node.on('touchstart',  ( event ) => {
-            if (this.btn.interactable) {
-                bgm.stopMusic();
-            } else {
-                bgm.playMusic();
-            }
-            this.btn.interactable = !this.btn.interactable;
-        });
-        
-    },
-    onDestroy() {
-        // cc.audioEngine.stop(this.current);
-    }
+  extends: cc.Component,
 
-    // update (dt) {},
+  properties: {
+     restart: cc.Node,
+     score: cc.Label,
+  },
+
+  // LIFE-CYCLE CALLBACKS:
+
+  onLoad () {
+    const Canvas =  cc.find('Canvas');
+    this.global = Canvas.getComponent('global');
+    this.restart.on('touchstart',  ( event ) => {
+        this.global.restart();
+    });
+    this.score.string = this.global.score;
+  },
+
+  start () {
+
+  },
+  update () {
+    this.score.string = this.global.score;
+  },
+  // update (dt) {},
 });

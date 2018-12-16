@@ -16,6 +16,7 @@ cc.Class({
         level: 1, // 关数
         score: 0, // 分数
         gameItem: 1, // 每一关击中多少个可以过关
+        dialogOver: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -35,6 +36,9 @@ cc.Class({
     // 减少生命
     loseLife() {
         this.life = this.life - 1;
+        if(this.life === 0) {
+            this.gameover();
+        }
     },
     // 加分
     addScore(num = 1) {
@@ -43,6 +47,15 @@ cc.Class({
     start () {
 
     },
-
+    restart() {
+        cc.director.loadScene('game');
+    },
+    // 游戏结束
+    gameover() {
+        const N_pos = this.dialogOver.parent.convertToNodeSpaceAR(cc.v2(cc.winSize.width/2,cc.winSize.height/2));
+        this.dialogOver.setPosition(N_pos);
+        this.dialogOver.active = true;
+    },
+   
     // update (dt) {},
 });
