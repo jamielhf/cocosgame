@@ -18,10 +18,10 @@ cc.Class({
         cc.audioEngine.playMusic( this.bgm, true );
     },
     stopMusic() {
-        cc.audioEngine.stop( this.bgm );
+        cc.audioEngine.stopMusic( this.bgm );
     },
     onHit() {
-        cc.audioEngine.playMusic( this.hit, false );
+        cc.audioEngine.play( this.hit, false );
     },
     pauseMusic() {
         cc.audioEngine.pauseMusic();

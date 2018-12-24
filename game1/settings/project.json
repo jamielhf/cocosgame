@@ -37,5 +37,6 @@
     "width": 1920
   },
   "use-customize-simulator": false,
-  "use-project-simulator-setting": true
+  "use-project-simulator-setting": true,
+  "start-scene": "current"
 }
