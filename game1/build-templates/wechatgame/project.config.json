@@ -1,7 +1,7 @@
 {
     "description": "项目配置文件。",
     "miniprogramRoot": "./",
-    "cloudfunctionRoot": "./cloudfunctionRoot" ,
+    "cloudfunctionRoot": "./server" ,
     "setting": {
         "urlCheck": true,
         "es6": false,

@@ -6,46 +6,45 @@ const wxApi = {
       traceUser: true,
       env, 
     });
-    const testDB = wx.cloud.database({
+    this.db = wx.cloud.database({
       env,
     });
-    console.log('数据库', testDB);
-    console.log('数据库', testDB.collection('users'));
-    testDB.collection('users').get().then(res => {
-      // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
-      console.log('数据库返回的', res.data)
-    });
+    // testDB.collection('users').get().then(res => {
+    //   // res.data 是一个包含集合中有权限访问的所有记录的数据，不超过 20 条
+    //   console.log('数据库返回的', res.data)
+    // });
 
     // 发起登录
-    wx.login({
-      success: ((res) => {
-        this.wxCode = res.code;
-        console.log(res);
-        this.wxGetUserState();
-        }
-      )
+    return new Promise((resolve, reject)=>{
+      wx.login({
+        success: ((res) => {
+           this.wxCode = res.code;
+           this.wxGetUserState(resolve);
+          }
+        )
+      })
     })
   },
-  wxGetUserState() {
-    // 获取用户当前的授权状态。
-    wx.getSetting({
-      fail: (res) => {
-        console.log(res);
-        this.wxGetUserInfo();
-      },
-      success: (res) => {
-        console.log(res);
-        if (res.authSetting['scope.userInfo']) {
-          this.getUserInfo();
-        }
-        else{
+  wxGetUserState(resolve) {
+      // 获取用户当前的授权状态。
+      wx.getSetting({
+        fail: (res) => {
+          console.log(res);
           this.wxGetUserInfo();
+        },
+        success: (res) => {
+          console.log(res);
+          if (res.authSetting['scope.userInfo']) {
+            this.getUserInfo(resolve);
+          }
+          else{
+            this.wxGetUserInfo(resolve);
+          }
         }
-      }
-    })
+      })
   },
-  wxGetUserInfo() {
-    console.log('获取用户信息');
+  wxGetUserInfo(resolve) {
+    console.log('提示按钮获取用户信息');
     const button = wx.createUserInfoButton({
       type: 'text',
       text: '获取用户信息',
@@ -66,33 +65,60 @@ const wxApi = {
       console.log(res);
       if (res.errMsg.indexOf('auth deny') > -1 || res.errMsg.indexOf('auth denied') > -1) {
         // 处理用户拒绝授权的情况
-        this.guideActive()
+        this.guideActive(resolve)
       }else {
-        this.setUserData(res)
+        this.setUserData(res, resolve);
       }
     })
   },
-  getUserInfo() {
+  getUserInfo(resolve) {
     // 获取用户信息
     wx.getUserInfo({
       fail: (res) => {
         console.log(res);
         if (res.errMsg.indexOf('auth deny') > -1 || res.errMsg.indexOf('auth denied') > -1) {
           // 处理用户拒绝授权的情况
-          this.guideActive()
+          this.guideActive(resolve);
         }
       },
       success:(res) => {
-        console.log(res);
-        this.setUserData(res);
+        this.setUserData(res, resolve);
       }
     })
   },
-  setUserData(data) {
-    console.log(data);
+  setUserData(data, resolve) {
+    console.log('拿到用户信息', data);
+    const userInfo = data.userInfo;
+    resolve(userInfo);
+    wx.cloud.callFunction({
+      name: 'getOpenid',
+      complete: res => {
+       console.log('云函数获取到的', res.result)
+       this.openId = res.result.openId;
+       this.db.collection('users').where({
+        _openid: this.openId,
+       }).get().then(res=>{
+         console.log('数据库查到的用户信息', res.data);
+         // 没有用户信息
+         if(res.data.length === 0) {
+           console.log(this.db);
+          this.db.collection('users').add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              score: 0,
+              avatarUrl: userInfo.avatarUrl,
+              nickName:  userInfo.nickName,
+            }
+          }).then(res=>{
+            console.log('插入数据', res);
+          })
+         }
+       })
+      }
+     });
   },
   // 处理用户拒绝授权的情况
-  guideActive () {
+  guideActive (resolve) {
     wx.showModal({
       title: '警告',
       content: '拒绝授权将无法正常游戏',
@@ -100,11 +126,28 @@ const wxApi = {
       showCancel: true,
       confirmText: '设置',
       success: (res) => {
-          if (res.confirm) {
-            this.wxGetUserState();
-          }
+        if (res.confirm) {
+          this.wxGetUserState(resolve);
+        } else {
+          resolve(false);
+        }
       }
     })
+  },
+  /**
+   * 更新分数
+   * @param {*} score 
+   */
+  setScore(score) {
+    wx.cloud.callFunction({
+      name: 'setScore',
+      data:{
+        score,
+      },
+      complete: res => {
+        console.log(res);
+      }
+    });
   },
 }
 
