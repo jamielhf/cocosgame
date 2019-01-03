@@ -45,19 +45,20 @@ const wxApi = {
   },
   wxGetUserInfo(resolve) {
     console.log('提示按钮获取用户信息');
+    const systemInfo = wx.getSystemInfoSync();
     const button = wx.createUserInfoButton({
       type: 'text',
-      text: '获取用户信息',
+      text: '',
       style: {
         left: 0,
         top: 0,
-        width: this.windowWidth,
-        height: this.windowHeight,
+        width: systemInfo.windowWidth,
+        height: systemInfo.windowHeight,
+        lineHeight: 60,
         backgroundColor: 'transparent',
-        borderColor: 'transparent',
-        color: '#000',
+        color: 'transparent',
         textAlign: 'center',
-        fontSize: 40,
+        fontSize: 16,
         borderRadius: 4
       }
     })
@@ -67,6 +68,7 @@ const wxApi = {
         // 处理用户拒绝授权的情况
         this.guideActive(resolve)
       }else {
+        if(res)  button.destroy();
         this.setUserData(res, resolve);
       }
     })
@@ -139,16 +141,37 @@ const wxApi = {
    * @param {*} score 
    */
   setScore(score) {
+    console.log("分数", score);
+    // 更新云函数的数据
     wx.cloud.callFunction({
       name: 'setScore',
       data:{
         score,
       },
       complete: res => {
+        console.log('更新数据库分数', res);
+      }
+    });
+    // 更新数据域的数据
+    wx.setUserCloudStorage({
+      KVDataList: [{ key: 'score', value: ''+score }],
+      success: res => {
+        console.log(res);
+        // 让子域更新当前用户的最高分，因为主域无法得到getUserCloadStorage;
+        let openDataContext = wx.getOpenDataContext();
+        openDataContext.postMessage({
+            type: 'updateMaxScore',
+        });
+      },
+      fail: res => {
         console.log(res);
       }
     });
   },
+ renderFriendRank() {
+  // 主域绘制
+                            
+ }
 }
 
 

@@ -30,7 +30,6 @@ cc.Class({
           avatarSprite.scale = 0.5;
           avatarSprite.fillStart = 0;
           this.setUser(avatarSprite, res.avatarUrl);
-          wxApi.setScore(100);
         }
       })
     }

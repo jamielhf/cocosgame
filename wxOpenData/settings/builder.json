@@ -12,29 +12,29 @@
   "md5Cache": false,
   "mergeStartScene": false,
   "oauthLoginServer": "",
-  "optimizeHotUpdate": true,
+  "optimizeHotUpdate": false,
   "orientation": {
     "landscapeLeft": true,
     "landscapeRight": true,
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.helloworld",
+  "packageName": "org.cocos2d.wx-sub-test",
   "privateKey": "",
   "qqplay": {
-    "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "startScene": "b8c94890-a15f-43e9-b311-d293d6fb2582",
-  "title": "hello_world",
-  "webOrientation": "auto",
+  "startScene": "088db947-d2bf-4c47-b64f-f30bc4bc0faa",
+  "title": "wx-open-data-project",
+  "webOrientation": "portrait",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "wx60436ebcea9f929e",
-    "isSubdomain": false,
-    "orientation": "portrait",
-    "subContext": ""
+    "appid": "wx6ac3f5090a6b99c5",
+    "buildsub": true,
+    "hasSubdomain": true,
+    "isSubdomain": true,
+    "orientation": "landscape"
   },
-  "xxteaKey": "1c6496a6-4d85-4e",
+  "xxteaKey": "0f6c60db-2545-4d",
   "zipCompressJs": true
 }
