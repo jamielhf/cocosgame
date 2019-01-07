@@ -29,7 +29,6 @@ cc.Class({
                 reject(res);
             }
         });
-        
         // https://developers.weixin.qq.com/minigame/dev/document/open-api/data/wx.getFriendCloudStorage.html
         wx.getFriendCloudStorage({
             keyList: ['maxScore'],
