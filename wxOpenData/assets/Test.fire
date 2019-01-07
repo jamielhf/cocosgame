@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4617940199335548,
-      "y": 0.4617940199335548,
+      "x": 0.31717941887346507,
+      "y": 0.31717941887346507,
       "z": 1
     },
     "_quat": {
@@ -383,8 +383,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 2,
-      "y": 208,
+      "x": -1,
+      "y": 211,
       "z": 0
     },
     "_scale": {
@@ -419,8 +419,8 @@
     "alignMode": 2,
     "_target": null,
     "_alignFlags": 40,
-    "_left": 2,
-    "_right": -2,
+    "_left": -1,
+    "_right": 1,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
@@ -519,9 +519,6 @@
       "__id__": 5
     },
     "_enabled": true,
-    "content": {
-      "__id__": 7
-    },
     "horizontal": true,
     "vertical": true,
     "inertia": true,
@@ -530,6 +527,12 @@
     "bounceDuration": 0.23,
     "scrollEvents": [],
     "cancelInnerEvents": true,
+    "_N$content": {
+      "__id__": 7
+    },
+    "content": {
+      "__id__": 7
+    },
     "_N$horizontalScrollBar": null,
     "_N$verticalScrollBar": null,
     "_id": "b4HoUznp9HN5/JWGm3VI20"

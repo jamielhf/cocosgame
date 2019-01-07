@@ -2,11 +2,11 @@ require('libs/weapp-adapter/index');
 var Parser = require('libs/xmldom/dom-parser');
 window.DOMParser = Parser.DOMParser;
 require('libs/wx-downloader.js');
-require('src/settings.fc9fd');
+require('src/settings.2a29e');
 var settings = window._CCSettings;
-require('main.a5e02');
-require(settings.debug ? 'cocos2d-js.js' : 'cocos2d-js-min.52109.js');
-require('./libs/weapp-adapter/engine/index.js');
+require('main.4407d');
+require(settings.debug ? 'cocos2d-js.js' : 'cocos2d-js-min.93443.js');
+require('./libs/engine/index.js');
 
 wxDownloader.REMOTE_SERVER_ROOT = "";
 wxDownloader.SUBCONTEXT_ROOT = "wx-open-data-project";

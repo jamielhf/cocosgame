@@ -6,31 +6,32 @@ cc.Class({
     properties: {
        display: cc.Sprite,
        texture: null,
+       backBtn: cc.Node,
+       nextBtn: cc.Node,
+       prevBtn: cc.Node,
     },
 
   
     onLoad () {
-        this.display.node.active = false;
+       
     },
     renderFriendRank() {
        
     },
     start () {
-        console.log(this._isShow);
-        this._isShow = true;
-        this._show = cc.moveTo(0.5, 0, 110);
-        this._hide = cc.moveTo(0.5, 0, 1000);
-        console.log(this.display);
-        this.node.on('touchstart',()=>{
-            this.display.node.active = true;
-            this._isShow = !this._isShow;
-            if (this._isShow) {
-                this.display.node.runAction(this._show);
-            }
-            else {
-                this.display.node.runAction(this._hide);
-            }
-        })
+        console.log(this.backBtn);
+        this.backBtn.on('touchstart',  ( event ) => {
+            setTimeout(()=>{
+                cc.director.loadScene('menu');
+            }, 300);
+        });
+        this.nextBtn.on('touchstart',  ( event ) => {
+            console.log('下一页');
+        });
+        this.prevBtn.on('touchstart',  ( event ) => {
+            console.log('上一页');
+        });
+       
     },
     update () {
     }

@@ -7,11 +7,17 @@ cc.Class({
   properties: {
      avatarUrl: '',
      nickName: '',
+     friendRank: cc.Node,
   },
   onLoad () {
-   
+   console.log(1);
   },
   start() {
+    this.friendRank.on('touchstart',  ( event ) => {
+      setTimeout(()=>{
+          cc.director.loadScene('friendRank');
+      }, 300);
+  });
     if(CC_WECHATGAME){
       wxApi.login().then(res=>{
         console.log('给到游戏的用户信息', res);

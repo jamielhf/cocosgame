@@ -135,7 +135,7 @@ window.boot = function () {
         BK.Script.loadlib();
     }
     else {
-        var bundledScript = settings.debug ? 'src/project.dev.js' : 'src/project.0adf4.js';
+        var bundledScript = settings.debug ? 'src/project.dev.js' : 'src/project.ac1c6.js';
         if (jsList) {
             jsList = jsList.map(function (x) {
                 return 'src/' + x;
@@ -146,12 +146,7 @@ window.boot = function () {
             jsList = [bundledScript];
         }
     }
-
-    // anysdk scripts
-    if (cc.sys.isNative && cc.sys.isMobile) {
-        jsList = jsList.concat(['src/anysdk/jsb_anysdk.js', 'src/anysdk/jsb_anysdk_constants.js']);
-    }
-
+    
     var option = {
         id: 'GameCanvas',
         scenes: settings.scenes,
@@ -166,7 +161,7 @@ window.boot = function () {
     cc.game.run(option, onStart);
 };
 
-// main.a5e02.js is qqplay and jsb platform entry file, so we must leave platform init code here
+// main.4407d.js is qqplay and jsb platform entry file, so we must leave platform init code here
 if (false) {
     BK.Script.loadlib('GameRes://src/settings.js');
     BK.Script.loadlib();
@@ -190,7 +185,7 @@ if (false) {
     window.boot();
 }
 else if (window.jsb) {
-    require('src/settings.fc9fd.js');
+    require('src/settings.2a29e.js');
     require('src/cocos2d-jsb.js');
     require('jsb-adapter/engine/index.js');
     window.boot();
